@@ -1,0 +1,69 @@
+server:
+  port: 8080
+  shutdown: graceful
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  application:
+    name: customer-rewards-calculator
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+  mvc:
+    throw-exception-if-no-handler-found: true
+    async:
+      request-timeout: 5000
+  web:
+    resources:
+      add-mappings: false
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: never
+
+springdoc:
+  api-docs:
+    path: /api/v1/openapi
+  swagger-ui:
+    path: /swagger-ui.html
+
+rewards:
+  default-months: 3
+  max-months: 36
+  max-range-days: 1126
+  simulated-latency-ms: 80
+  fetch-timeout-ms: 2000
+  fetch-core-pool-size: 4
+  fetch-max-pool-size: 16
+  fetch-queue-capacity: 100
+  tiers:
+    - minimum-exclusive: 100
+      points-per-dollar: 2
+    - minimum-exclusive: 50
+      points-per-dollar: 1
+
+logging:
+  level:
+    root: INFO
+    com.retailer.rewards: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level [%thread] [%X{requestId}] %logger{36} - %msg%n"
