@@ -1,0 +1,7 @@
+rewards:
+  simulated-latency-ms: 0
+
+logging:
+  level:
+    root: WARN
+    com.retailer.rewards: INFO
